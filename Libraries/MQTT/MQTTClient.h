@@ -17,6 +17,7 @@ public:
     void keepAlive();
     dlist getDetected();
     void resetDevices();
+    void clearDevices();
 private:
     const char* ssid = "VM9304545";
     const char* password =  "nv7nwTfjXksx";

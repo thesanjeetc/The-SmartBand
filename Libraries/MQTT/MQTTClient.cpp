@@ -35,6 +35,10 @@ void MQTTClient::resetDevices(){
   deviceNum = 0;
 }
 
+void MQTTClient::clearDevices(){
+  memset(devices, 0, sizeof(devices));
+}
+
  void MQTTClient::callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived in topic: ");
   Serial.println(topic);
