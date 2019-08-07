@@ -39,13 +39,7 @@ const uint16_t kIrLed = 4;  // ESP8266 GPIO pin to use. Recommended: 4 (D2).
 IRsend irsend(kIrLed);  // Set the GPIO to be used to sending the message.
 
 // Example of data captured by IRrecvDumpV2.ino
-uint16_t rawData[67] = {9000, 4500, 650, 550, 650, 1650, 600, 550, 650, 550,
-                        600, 1650, 650, 550, 600, 1650, 650, 1650, 650, 1650,
-                        600, 550, 650, 1650, 650, 1650, 650, 550, 600, 1650,
-                        650, 1650, 650, 550, 650, 550, 650, 1650, 650, 550,
-                        650, 550, 650, 550, 600, 550, 650, 550, 650, 550,
-                        650, 1650, 600, 550, 650, 1650, 650, 1650, 650, 1650,
-                        650, 1650, 650, 1650, 650, 1650, 600};
+uint16_t rawData[119] = {1320, 374,  1324, 368,  470, 1224,  1316, 378,  1322, 372,  478, 1216,  474, 1220,  470, 1224,  476, 1218,  472, 1222,  478, 1216,  1324, 7202,  1322, 372,  1318, 376,  474, 1220,  1320, 372,  1318, 376,  472, 1222,  478, 1216,  474, 1220,  470, 1224,  476, 1218,  472, 1222,  1318, 7206,  1318, 376,  1324, 370,  470, 1222,  1328, 368,  1322, 370,  478, 1216,  474, 1220,  470, 1224,  476, 1220,  470, 1224,  478, 1216,  1324, 7202,  1322, 372,  1318, 376,  472, 1220,  1320, 374,  1326, 368,  470, 1222,  478, 1216,  472, 1222,  478, 1216,  474, 1218,  470, 1224,  1316, 7210,  1324, 370,  1320, 374,  476, 1218,  1322, 372,  1316, 378,  472, 1222,  478, 1216,  474, 1220,  480, 1214,  476, 1220,  470, 1224,  1326};
 // Example Samsung A/C state captured from IRrecvDumpV2.ino
 uint8_t samsungState[kSamsungAcStateLength] = {
     0x02, 0x92, 0x0F, 0x00, 0x00, 0x00, 0xF0,
@@ -57,16 +51,6 @@ void setup() {
 }
 
 void loop() {
-  Serial.println("NEC");
-  irsend.sendNEC(0x00FFE01FUL);
-  delay(2000);
-  Serial.println("Sony");
-  irsend.sendSony(0xa90, 12, 2);  // 12 bits & 2 repeats
-  delay(2000);
-  Serial.println("a rawData capture from IRrecvDumpV2");
-  irsend.sendRaw(rawData, 67, 38);  // Send a raw data capture at 38kHz.
-  delay(2000);
-  Serial.println("a Samsung A/C state from IRrecvDumpV2");
-  irsend.sendSamsungAC(samsungState);
+  irsend.sendRaw(rawData, 119, 38);  // Send a raw data capture at 38kHz.
   delay(2000);
 }

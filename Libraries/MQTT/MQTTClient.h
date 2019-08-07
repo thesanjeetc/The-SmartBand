@@ -11,7 +11,7 @@ struct dlist{
 
 class MQTTClient: public PubSubClient{
 public:
-    MQTTClient();
+    MQTTClient(char *x);
     void callback(char* topic, byte* payload, unsigned int length);
     void startUp();
     void keepAlive();

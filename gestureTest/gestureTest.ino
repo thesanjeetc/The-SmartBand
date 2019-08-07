@@ -1,3 +1,4 @@
+#include <Arduino.h>
 /******************************************************************************
   SoftPot_Example.ino
   Example sketch for SparkFun's soft membrane potentiometer

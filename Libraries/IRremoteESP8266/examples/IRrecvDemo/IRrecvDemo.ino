@@ -25,7 +25,7 @@
 
 // An IR detector/demodulator is connected to GPIO pin 14(D5 on a NodeMCU
 // board).
-const uint16_t kRecvPin = 13;
+const uint16_t kRecvPin = 14;
 
 IRrecv irrecv(kRecvPin);
 

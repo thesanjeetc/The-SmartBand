@@ -1,0 +1,57 @@
+block S3: Module Selection{
+  || S3: Module Aggregation||;
+switch(Found Devices?) {
+  case No devices:
+  abc:
+    || S1: Gesture Detection||;
+    break;
+  case One device:
+      <Send 'Execute' command>;
+    loop abc;
+    break;
+  case Multiple devices:
+    do{
+        for(Start device 
+      selection cycle.;!Command Detected?;Next device.){
+        <Send 'Select' command to device.>;
+        Wait.;
+        <Send 'Unelect' command to device.>;
+      }
+    }while(!Timeout?);
+    loop abc;
+    break;
+}
+}
+
+--alternative---
+
+block S3: Module Selection{
+  || S3: Module Aggregation||;
+switch(Found Devices?) {
+  case No devices:
+  abc:
+    || S1: Gesture Detection||;
+    break;
+  case One device:
+      <Send 'Execute' command>;
+    loop abc;
+    break;
+  case Multiple devices:
+    do{
+        Read Analog Input;
+        if(Tap?){
+            
+        <Send 'Unelect' command 
+        to current device.>;
+        <Send 'Select' command 
+        to next device.>;
+        }else if(Long Tap?){
+          <Send 'Execute' 
+          command to current device.>;
+          loop abc;
+      }
+    }while(!Timeout?);
+    loop abc;
+    break;
+}
+}

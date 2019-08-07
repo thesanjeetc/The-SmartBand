@@ -1,0 +1,9 @@
+block S1: Gesture Detection{
+Start;
+do{
+  Read analog 
+  input.;
+}while(!Gesture?)
+|Send corresponding IR signal.|;
+}
+

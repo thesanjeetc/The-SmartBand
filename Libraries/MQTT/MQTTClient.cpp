@@ -5,8 +5,11 @@
 
 WiFiClient espClient;
 
-MQTTClient::MQTTClient(): PubSubClient(espClient){
+MQTTClient::MQTTClient(char *x): PubSubClient(espClient){
   Serial.println("Created.");
+  if(x="b"){
+    setCallback([this] (char* topic, byte* payload, unsigned int length) { this->callback(topic, payload, length); });
+  }
 }
 
 void MQTTClient::startUp(){
@@ -18,7 +21,6 @@ void MQTTClient::startUp(){
   Serial.println("Connected to the WiFi network");
  
   setServer(mqttServer, mqttPort);
-  setCallback([this] (char* topic, byte* payload, unsigned int length) { this->callback(topic, payload, length); });
  
   while (!connected()) {
     if (connect("ESP8266Client", mqttUser, mqttPassword )) {
@@ -42,7 +44,7 @@ void MQTTClient::clearDevices(){
  void MQTTClient::callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived in topic: ");
   Serial.println(topic);
-  Serial.print("Message:");
+  Serial.println("Message:");
   for (int i = 0; i < length; i++) {
     Serial.print((char)payload[i]);
     devices[deviceNum*5 + i] = (char)payload[i];

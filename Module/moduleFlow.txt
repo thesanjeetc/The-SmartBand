@@ -1,0 +1,69 @@
+Start;
+
+block S1: Signal Detection{
+do{
+  readir:
+  Read IR transmitter;
+}while(!Valid Command?)
+<Send 'Detected' command.>;
+}
+
+block S2: Selection Process{
+do{
+  Check command messages.;
+  if(Message Detected){
+    switch(Message?){
+      case ON:
+        Display 'On' indicator;
+      break;
+      case OFF:
+        Display 'Off' indicator;
+      break;
+      case EXECUTE:
+        loop exe;
+    }
+    
+  }
+}while(!Timeout?)
+loop readir;
+}
+
+exe:
+||Execute Action||;
+loop readir;
+
+-----
+
+block S1: Signal Detection{
+  Start;
+do{
+  readir:
+  Read IR transmitter;
+}while(!Valid Command?)
+<Send 'Detected' command.>;
+||Selection Process||;
+}
+
+block S2: Selection Process{
+  abc:
+||Signal Detection||;
+do{
+  Check command messages.;
+  if(Message Detected){
+    switch(Message?){
+      case ON:  
+        Display 'On' indicator;
+      break;
+      case OFF:
+        Display 'Off' indicator;
+      break;
+      case EXECUTE:
+        ||Execute Action||;
+        loop abc;
+        break;
+    }
+    Wait;
+  }
+}while(!Timeout?)
+loop abc;
+}

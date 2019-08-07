@@ -1,0 +1,4 @@
+Tap - 
+Swipe Up - 
+Swipe Down - 
+Long Tap - 
