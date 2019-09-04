@@ -1,0 +1,7 @@
+block S2: Module Aggregation{
+||Gesture Detection||;
+do{
+  Check devices found.;
+}while(!Timeout?);
+||Module Selection||;
+}

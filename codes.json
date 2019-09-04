@@ -1,0 +1,20 @@
+{
+	"on" : {
+		"tv": 87347,
+		"television": 87347,
+		"internet": 999,
+		"xbox": 87811,
+		"piano": 89347,
+		"mandir":95491,
+		"light":95491 
+	},
+	"off" : {
+		"tv": 87356,
+		"television": 87356,
+		"internet": 999,
+		"xbox": 87820,
+		"piano":89356,
+		"mandir":95500,
+		"light":95500
+	}
+}

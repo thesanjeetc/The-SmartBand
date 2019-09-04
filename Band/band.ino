@@ -15,7 +15,7 @@ struct Timeout
   Timeout(unsigned long t) { timeout = t; };
   void start() { timeoutStart = millis(); };
   bool checkTimeout() { return (millis() - timeoutStart) > timeout ? true : false; };
-} mainT(30), dProcessT(10000), dSelectionT(0), dHoverT(3000);
+} mainT(30), dProcessT(3500), dSelectionT(0), dHoverT(3000);
 
 enum States
 {
@@ -31,7 +31,7 @@ int gesture;
 uint64_t IRCodes[4] = {0x20DF906F, 0x20DF40BF, 0x20DFC03F, 0x20DF10EF};
 
 GestureSensor sensor(A0);
-MQTTClient client;
+MQTTClient client("b");
 dlist found;
 int selectedDevice;
 char selectedDeviceName[5];
@@ -39,11 +39,12 @@ char selectedDeviceName[5];
 void setup()
 {
   Serial.begin(115200);
-  States state = detectGesture;
-  irsend.begin();
-
   client.startUp();
-  client.subscribe("devices");
+
+  States state = detectGesture;
+
+  irsend.begin();
+  client.subscribe("devices");  
 }
 
 void loop()

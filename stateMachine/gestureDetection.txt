@@ -1,0 +1,29 @@
+block Gesture Detection{
+|Read Sensor Voltage.|;
+/*i.e. Sensor Voltage > 30. Any value lower turns out to be noise.
+  */
+if(Being Touched?){
+  Start Timer;
+  do{
+    /*Previous voltage values stored for later comparison.*/
+    Record Sensor Voltage.
+  }while(Being Touched?);
+  /*Due to noise, there are always fluctuations, therefore an average was taken.*/
+  if(Change in Voltage?){
+    if(Change > 0){
+      ||Swipe Up||;
+    }else{
+      ||Swipe Down||;
+    }
+  }else{
+    /*Through testing different durations, 600ms felt the most natural*/
+    if(Touch Duration > 600ms ?){
+    ||Long Tap||;
+  }else{
+    ||Tap||;
+  }
+  }
+}else{
+  No Gesture Detected.
+}
+}

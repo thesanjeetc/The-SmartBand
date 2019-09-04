@@ -73,7 +73,7 @@ void loop()
           }
           lastVal = curVal;
           lastDiff = diffVal;
-          delay(15);
+          delay(15);a
         }
         startMillis = currentMillis;  //IMPORTANT to save the start time of the current LED state.
     }

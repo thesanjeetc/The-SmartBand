@@ -3,7 +3,6 @@
 #include <stdint.h>
 #include <IRrecv.h>
 #include <IRremoteESP8266.h>
-#include <IRsend.h>
 #include <IRtimer.h>
 #include <IRutils.h>
 #include "MQTTClient.h"
@@ -24,19 +23,17 @@ enum States
   executeCommand
 } state;
 
-IRsend irsend(4);
-
-IRrecv irrecv(13);
+IRrecv irrecv(2);
 uint64_t IRCodes[4] = {0x20DF906F, 0x20DF40BF, 0x20DFC03F, 0x20DF10EF};
 decode_results results;
 
 MQTTClient client("d");
-char deviceID[] = "d0001";
+char deviceID[] = "d0002";
 int action;
 
-int rPin = 15;
+int rPin = 2;
 int gPin = 5;
-int bPin = 16;
+int bPin = 4;
 
 void handleCommand(char *topic, byte *payload, unsigned int length)
 {
@@ -73,17 +70,17 @@ void ledState(int i)
     digitalWrite(bPin, LOW);
     break;
   case 1: //green
-    digitalWrite(rPin, LOW);
-    digitalWrite(gPin, HIGH);
-    digitalWrite(bPin, LOW);
+    digitalWrite(rPin, HIGH);
+    digitalWrite(gPin, LOW);
+    digitalWrite(bPin, HIGH);
     break;
   case 2: //orange
-    digitalWrite(rPin, HIGH);
-    digitalWrite(gPin, HIGH);
+    digitalWrite(rPin, LOW);
+    digitalWrite(gPin, LOW);
     digitalWrite(bPin, LOW);
     break;
   case 3: //off
-    digitalWrite(rPin, LOW);
+    digitalWrite(rPin, HIGH);
     digitalWrite(gPin, LOW);
     digitalWrite(bPin, LOW);
     break;
@@ -97,11 +94,11 @@ void setup()
   pinMode(bPin, OUTPUT);
   Serial.begin(115200);
   States state = detectIR;
-  irsend.begin();
   irrecv.enableIRIn();
   client.startUp();
   client.subscribe(deviceID);
   client.setCallback(handleCommand);
+  ledState(3);
 }
 
 void loop()
